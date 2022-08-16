@@ -1,2 +1,4 @@
-const question = prompt('Com quantas cartas quer jogar?');
-
+function askLetters() {
+  const question = prompt('Com quantas cartas quer jogar?');
+}
+askLetters();
