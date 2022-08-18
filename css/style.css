@@ -23,12 +23,12 @@ h1 {
   gap: 16px; /*espacamento entre cada um dos itens do grid*/ 
 }
 
-.card-flipper img {
+.memory-card img {
   width: 100px;
   height: 100px;
 }
 
-.card-flipper {
+.memory-card {
   width: 117px;
   height: 146px;
 
@@ -43,24 +43,38 @@ h1 {
 
   background-color: var(--background-card);
 
+  transform-style: preserve-3d;
+  transition: 0.3s;
   position: relative;
-  transition: transform 0.5s;
-	transform-style: preserve-3d;
 }
 
-.card-flipper:active {
+.memory-card:active {
+  transform: scale(0.97);
+}
+
+.memory-card.flip {
   transform: rotateY(180deg);
 }
 
-.front, .back{
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+
   position: absolute;
+
+  backface-visibility: hidden
+}
+
+.front-face {
   top: 20px;
   left: 10px;
-  backface-visibility: hidden;
 }
 
-.back{
+.back-face {
   transform: rotateY(180deg);
+  top: 20px;
+  right: 10px;
 }
 
 @media (max-width: 614px) {

@@ -1,5 +1,7 @@
-let cardsArray = [];
+let firstCard;
+let secondCard;
 
+let cardsArray = [];
 let imageArray = [
   "./assets/explodyparrot.gif",
   "./assets/bobrossparrot.gif",
@@ -10,26 +12,61 @@ let imageArray = [
   "./assets/unicornparrot.gif"
 ];
 
-let cards = 0;
-
-while (cards % 2 !== 0 || cards == 0 || cards < 4 || cards > 14) {
-  cards = prompt("Digite a quantidade de cartas para jogar novamente: (somente pares)");
-  cardsArray.push(cards);
+let qtdCards = 0;
+while (qtdCards % 2 !== 0 || qtdCards == 0 || qtdCards < 4 || qtdCards > 14) {
+  qtdCards = prompt("Digite a quantidade de cartas para jogar novamente: (somente pares)");
 }
 
-const list = document.querySelector('ul');
+for (let i = 0; i < qtdCards / 2; i++) {
+  cardsArray.push(imageArray[i]);
+  cardsArray.push(imageArray[i]);
+}
 
-let indice = 0;
-while (cardsArray[cardsArray.length - 1] > indice) {
-  list.innerHTML = list.innerHTML + `
-  <li class="card-flipper">
-    <div class="front">
+const listUl = document.querySelector('ul');
+
+function comparador() {
+  return Math.random() - 0.5;
+}
+
+cardsArray.sort(comparador);
+
+for (let indice = 0; cardsArray.length > indice; indice++) {
+
+  let item = `
+  <li class="memory-card" onclick="activeCard(this)">
+    <div class="front-face">
       <img src="./assets/front.png" alt="papagaio verde">
     </div>
-    <div class="back">
-       <img src=${imageArray[indice]} />
+    <div class="back-face">
+       <img src=${cardsArray[indice]} />
      </div>
   </li>
   `;
-  indice = indice + 1;
+
+  listUl.innerHTML = listUl.innerHTML + item;
 }
+
+
+function activeCard(cardSelected) {
+
+  cardSelected.classList.add('flip');
+
+  if (!firstCard) {
+    firstCard = cardSelected; // se firstCard for false, vai receber o item que cliquei
+  } else {
+    let firstSrc = firstCard.childNodes[3].children[0].src; //busco o src de firstCard
+    let src = cardSelected.childNodes[3].children[0].src; //busco o src do card clicado
+
+    if( firstSrc !== src){
+      setTimeout(()=>{
+        cardSelected.classList.remove('flip');
+        firstCard.classList.remove('flip');
+  
+        firstCard = undefined;
+      }, 1200);
+     
+    }
+  }
+
+}
+
