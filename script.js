@@ -1,5 +1,9 @@
+let contador = 0;
+
 let firstCard;
 let secondCard;
+
+let cardsMatch = [];
 
 let cardsArray = [];
 let imageArray = [
@@ -14,7 +18,7 @@ let imageArray = [
 
 let qtdCards = 0;
 while (qtdCards % 2 !== 0 || qtdCards == 0 || qtdCards < 4 || qtdCards > 14) {
-  qtdCards = prompt("Digite a quantidade de cartas para jogar novamente: (somente pares)");
+  qtdCards = prompt("Digite a quantidade de cartas para jogar: (somente pares)");
 }
 
 for (let i = 0; i < qtdCards / 2; i++) {
@@ -55,18 +59,34 @@ function activeCard(cardSelected) {
     firstCard = cardSelected; // se firstCard for false, vai receber o item que cliquei
   } else {
     let firstSrc = firstCard.childNodes[3].children[0].src; //busco o src de firstCard
-    let src = cardSelected.childNodes[3].children[0].src; //busco o src do card clicado
+    let currentSrc = cardSelected.childNodes[3].children[0].src; //busco o src do card clicado
 
-    if( firstSrc !== src){
-      setTimeout(()=>{
+    if (firstSrc !== currentSrc) {
+      timerClick = setTimeout(() => {
         cardSelected.classList.remove('flip');
         firstCard.classList.remove('flip');
-  
+
         firstCard = undefined;
-      }, 1200);
-     
+      }, 1000);
+    } else {
+      cardsMatch.push(firstSrc);
+      cardsMatch.push(currentSrc);
+      firstCard = undefined;
     }
   }
 
+  contador++;  
+  checkEndGame();
 }
+
+function checkEndGame() {
+  const checkCard = document.querySelectorAll('.flip');
+
+  setTimeout(()=>{
+  if (checkCard.length == cardsArray.length) {
+      alert(`Você ganhou em ${contador} jogadas!`);
+    }
+  }, 1000);
+}
+
 
