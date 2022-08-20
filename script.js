@@ -22,7 +22,7 @@ let imageArray = [
 ];
 
 function addCards() {
-
+  
   let qtdCards = 0;
   while (qtdCards % 2 !== 0 || qtdCards == 0 || qtdCards < 4 || qtdCards > 14) {
     qtdCards = prompt("Digite a quantidade de cartas para jogar: (somente pares)");
@@ -32,9 +32,7 @@ function addCards() {
     cardsArray.push(imageArray[i]);
     cardsArray.push(imageArray[i]);
   }
-}
 
-addCards();
 
 idInterval = setInterval(updateCounter, 1000);
 
@@ -62,6 +60,9 @@ for (let indice = 0; cardsArray.length > indice; indice++) {
   listUl.innerHTML = listUl.innerHTML + item;
 }
 
+}
+
+addCards();
 
 function activeCard(cardSelected) {
 
@@ -110,10 +111,22 @@ function followGame() {
   if (restartGame == 'não' || restartGame == 'nao') {
     alert('Obrigada por jogar, volte sempre 😃');
   } else if (restartGame == 'sim') {
-    timer = 0;
-    cardsArray = [];
 
-    addCards();
+  firstCard = '';
+
+  restartGame = '';
+
+  timer = 0;
+
+  cardsMatch = [];
+
+  cardsArray = [];
+
+  const listUl = document.querySelector('ul');
+  listUl.innerHTML = '';
+
+  addCards();
+
   }
 }
 
