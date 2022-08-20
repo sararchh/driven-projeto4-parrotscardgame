@@ -111,6 +111,7 @@ function followGame() {
   if (restartGame == 'não' || restartGame == 'nao') {
     alert('Obrigada por jogar, volte sempre 😃');
   } else if (restartGame == 'sim') {
+  contador = 0;
 
   firstCard = '';
 
@@ -127,7 +128,7 @@ function followGame() {
 
   addCards();
 
-  }
+  } 
 }
 
 
