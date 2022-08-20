@@ -13,6 +13,7 @@ h1 {
   font-weight: 700;
   font-size: 56px;
   line-height: 65.63px;
+  margin: 10px;
 }
 
 .cardContainer {
@@ -75,6 +76,30 @@ h1 {
   transform: rotateY(180deg);
   top: 20px;
   right: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.box-counter{
+  background-color: var(--background-card);
+  padding: 20px;
+  border-radius: 5px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.counter {
+  color: #183059;
+  font-size: 4em;
+}
+
+.labelSeg {
+  font-family: "Montserrat", sans-serif;
+  color: #183059;
+  font-size: 1em;
 }
 
 @media (max-width: 614px) {

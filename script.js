@@ -1,11 +1,16 @@
 let contador = 0;
 
 let firstCard;
-let secondCard;
+
+let restartGame = '';
+
+let timer = 0;
+let stopidTimer;
 
 let cardsMatch = [];
 
 let cardsArray = [];
+
 let imageArray = [
   "./assets/explodyparrot.gif",
   "./assets/bobrossparrot.gif",
@@ -16,15 +21,22 @@ let imageArray = [
   "./assets/unicornparrot.gif"
 ];
 
-let qtdCards = 0;
-while (qtdCards % 2 !== 0 || qtdCards == 0 || qtdCards < 4 || qtdCards > 14) {
-  qtdCards = prompt("Digite a quantidade de cartas para jogar: (somente pares)");
+function addCards() {
+
+  let qtdCards = 0;
+  while (qtdCards % 2 !== 0 || qtdCards == 0 || qtdCards < 4 || qtdCards > 14) {
+    qtdCards = prompt("Digite a quantidade de cartas para jogar: (somente pares)");
+  }
+
+  for (let i = 0; i < qtdCards / 2; i++) {
+    cardsArray.push(imageArray[i]);
+    cardsArray.push(imageArray[i]);
+  }
 }
 
-for (let i = 0; i < qtdCards / 2; i++) {
-  cardsArray.push(imageArray[i]);
-  cardsArray.push(imageArray[i]);
-}
+addCards();
+
+idInterval = setInterval(updateCounter, 1000);
 
 const listUl = document.querySelector('ul');
 
@@ -75,18 +87,39 @@ function activeCard(cardSelected) {
     }
   }
 
-  contador++;  
+  contador++;
   checkEndGame();
 }
 
 function checkEndGame() {
   const checkCard = document.querySelectorAll('.flip');
 
-  setTimeout(()=>{
-  if (checkCard.length == cardsArray.length) {
-      alert(`Você ganhou em ${contador} jogadas!`);
+  setTimeout(() => {
+    if (checkCard.length == cardsArray.length) {
+      clearInterval(idInterval);
+      alert(`Você ganhou em ${contador} jogadas e demorou ${timer} segundos!`);
+      followGame();
     }
   }, 1000);
 }
 
+function followGame() {
+  restartGame = prompt('Deseja continuar a partida? Sim ou Não?');
+  restartGame = restartGame.toLowerCase();
 
+  if (restartGame == 'não' || restartGame == 'nao') {
+    alert('Obrigada por jogar, volte sempre 😃');
+  } else if (restartGame == 'sim') {
+    timer = 0;
+    cardsArray = [];
+
+    addCards();
+  }
+}
+
+
+function updateCounter() {
+  timer++;
+  const elementCounter = document.querySelector(".counter");
+  elementCounter.innerHTML = timer;
+}
